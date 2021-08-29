@@ -19,30 +19,30 @@ import {
 export const UploadPage = () => {
    const [isLoading, setIsLoading] = useState<boolean>(false);
    const history = useHistory();
-   const [companyFile, setCompanyFile] = useState<File | null>(null);
-   const [bankFile, setBankFile] = useState<File | null>(null);
+   const [companyFile, setCompanyFile] = useState<Blob | string>("");
+   const [bankFile, setBankFile] = useState<Blob | string>("");
 
    const changeHandlerFile1 = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setCompanyFile(event.target.files ? event.target.files[0] : null);
+      setCompanyFile(event.target.files ? event.target.files[0] : "");
       console.log("company");
    };
    const changeHandlerFile2 = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setBankFile(event.target.files ? event.target.files[0] : null);
+      setBankFile(event.target.files ? event.target.files[0] : "");
       console.log("bank");
    };
 
    const handleSubmit = () => {
+      let data = new FormData()
       setIsLoading(true);
+      data.append('file1', companyFile)
+      data.append('file2', bankFile)
       const requestOptions = {
          method: "POST",
          headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
             "access-control-allow-origin": "*",
          },
-         body: JSON.stringify({
-            file: bankFile,
-            file2: companyFile,
-         }),
+         body: data
       };
       
 
