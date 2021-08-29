@@ -1,34 +1,32 @@
-import React, { useState, useRef } from "react";
+import React, { useState, forwardRef } from "react";
 import { Container, Input, Button } from "./styles";
 
 interface UploadButtonProps {
-   children: string;
+  children: string;
 }
-export const UploadButton = ({ children }: UploadButtonProps) => {
-   const [selectedFile, setSelectedFile] = useState();
-   const hiddenFileInput = useRef(document.createElement("input"));
 
-   const handleClick = (event: any) => {
-        if (hiddenFileInput)
-        hiddenFileInput.current.click();
-   };
-   
-   const changeHandler = (event: any) => {
-      if (!event) return;
-      
-      setSelectedFile(event.target.files[0]);
-      console.log(event.target.files[0]);
-   };
+const UploadButton = ({ children, ...others }: UploadButtonProps) => {
+  const hiddenInputRef = React.useRef<HTMLInputElement>(null);
 
-   return (
-      <Container>
-         <Button onClick={handleClick}>{children}</Button>
-         <Input
-            ref={hiddenFileInput}
-            type="file"
-            accept=".csv"
-            onChange={changeHandler}
-         />
-      </Container>
-   );
+  const handleClick = () => {
+    hiddenInputRef.current?.click();
+  };
+
+  const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.files);
+  };
+
+  return (
+    <Container>
+      <Button onClick={handleClick}>{children}</Button>
+      <Input
+        ref={hiddenInputRef}
+        {...others}
+        type="file"
+        onChange={changeHandler}
+      />
+    </Container>
+  );
 };
+
+export default UploadButton;

@@ -1,12 +1,19 @@
-import React from 'react';
-import { Container, Title } from './styles';
+import React from "react";
+import { Button, Container, Page, StyledImage, Title, Box } from "./styles";
 
 export const DownloadPage = () => {
   return (
-    <Container>
-      <Title>
-        Prontinho, realizamos toda a magia e você pode baixar o arquivo!
-      </Title>
-    </Container>
-  )
-}
+    <Page>
+      <Container>
+        <Box>
+          <StyledImage />
+          <Title>Seu arquivo já decolou na web!</Title>
+          <Title>Agora é possível baixá-lo 🚀</Title>
+        </Box>
+        <Box>
+          <Button>Fazer Download</Button>
+        </Box>
+      </Container>
+    </Page>
+  );
+};
