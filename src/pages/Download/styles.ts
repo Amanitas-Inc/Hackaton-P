@@ -57,7 +57,7 @@ export const StyledImage = styled(Image)`
 
 export const Title = styled.h1`
    color: #fff;
-   min-height:25px;
+   min-height: 25px;
    font-size: clamp(1.2rem, 2vw, 2.25rem);
    line-height: 130%;
    font-weight: 500;
@@ -65,6 +65,11 @@ export const Title = styled.h1`
 `;
 
 export const ButtonWrapper = styled.div`
+   display: flex;
+   margin: 0 auto;
+   align-items: center;
+   flex-direction: column;
+   gap: 30px;
    position: absolute;
-   bottom: -100%;
+   bottom: -160%;
 `;

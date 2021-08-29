@@ -44,10 +44,14 @@ export const UploadPage = () => {
             file2: companyFile,
          }),
       };
+      
 
       fetch("http://127.0.0.1:5000/arquivo", requestOptions)
          .then((response) => response.json())
          .then((data) => {
+            setIsLoading(false);
+            history.push("/download");
+         }, (err)=> {
             setIsLoading(false);
             history.push("/download");
          });
