@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import GlassButton from "../../components/glass-button";
 import UploadButton from "../../components/upload-button";
 import { LoadingPage } from "../Loading";
@@ -17,7 +18,7 @@ import {
 
 export const UploadPage = () => {
    const [isLoading, setIsLoading] = useState<boolean>(false);
-
+   const history = useHistory();
    const [companyFile, setCompanyFile] = useState<File | null>(null);
    const [bankFile, setBankFile] = useState<File | null>(null);
 
@@ -33,17 +34,23 @@ export const UploadPage = () => {
    const handleSubmit = () => {
       setIsLoading(true);
       const requestOptions = {
-         method: 'POST',
-         headers: { 'Content-Type': 'application/json' },
-         body: JSON.stringify({ 
+         method: "POST",
+         headers: {
+            "Content-Type": "application/json",
+            "access-control-allow-origin": "*",
+         },
+         body: JSON.stringify({
             file: bankFile,
-            file2: companyFile
-         })
-     };
-     
-     fetch('http://127.0.0.1:5000/arquivo', requestOptions)
-         .then(response => response.json())
-         .then(data => setIsLoading(false));
+            file2: companyFile,
+         }),
+      };
+
+      fetch("http://127.0.0.1:5000/arquivo", requestOptions)
+         .then((response) => response.json())
+         .then((data) => {
+            setIsLoading(false);
+            history.push("/download");
+         });
    };
 
    return !isLoading ? (
